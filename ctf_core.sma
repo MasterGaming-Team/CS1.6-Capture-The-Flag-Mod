@@ -86,9 +86,6 @@ public msgTeamScore(msg_id, msg_dest, id)
 
     get_msg_arg_string(1, lTeamName, charsmax(lTeamName))
 
-    client_print(0, print_console, "%d | %d", get_msg_arg_int(1), get_msg_arg_int(2))
-    client_print(0, print_console, "%s | %d", lTeamName, get_msg_arg_int(2))
-
     if(equal(lTeamName, "TERRORIST"))
     {
         set_msg_arg_int(2, get_msg_argtype(2), gTrScore)
@@ -367,6 +364,9 @@ takeFlag(flagId, id)
     if(!is_valid_ent(flagId))
         return
 
+    if(is_valid_ent(gUserFlag[id]))
+        return
+
     switch(entity_get_int(flagId, EV_INT_body))
     {
         case FLAG_BODY_BLUE:
@@ -381,7 +381,7 @@ takeFlag(flagId, id)
 
             entity_set_int(flagId, EV_INT_sequence, FLAG_SEQ_BASE)
             entity_set_size(flagId, Float:{0.0, 0.0, 0.0}, Float:{0.0, 0.0, 0.0})
-            entity_set_vector(flagId, EV_VEC_velocity, Float:{0.0, 0.0, 0.0})
+            entity_set_vector(flagId, EV_VEC_velocity, Float:{0.0, 0.0, 180.0})
             entity_set_edict(flagId, EV_ENT_aiment, id)
             entity_set_edict(flagId, EV_ENT_owner, id)
             entity_set_int(flagId, EV_INT_movetype, MOVETYPE_FOLLOW)
@@ -404,7 +404,7 @@ takeFlag(flagId, id)
 
             entity_set_int(flagId, EV_INT_sequence, FLAG_SEQ_BASE)
             entity_set_size(flagId, Float:{0.0, 0.0, 0.0}, Float:{0.0, 0.0, 0.0})
-            entity_set_vector(flagId, EV_VEC_velocity, Float:{0.0, 0.0, 0.0})
+            entity_set_vector(flagId, EV_VEC_velocity, Float:{0.0, 0.0, 180.0})
             entity_set_edict(flagId, EV_ENT_aiment, id)
             entity_set_edict(flagId, EV_ENT_owner, id)
             entity_set_int(flagId, EV_INT_movetype, MOVETYPE_FOLLOW)
